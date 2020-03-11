@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>MURP</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+
+<!-- this is all the icon stuff for browsers, stfu webdev  -->
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="favicomatic/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="favicomatic/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="favicomatic/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="favicomatic/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="favicomatic/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="favicomatic/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="favicomatic/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="favicomatic/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="favicomatic/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="favicomatic/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="favicomatic/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="favicomatic/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="favicomatic/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="&nbsp;"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+
+.bookimgstyle {
+  height: 128px;
+}
+
+
+body {
+  --topbar: #DDBB88;
+
+  --text: #FFFFFFFF;
+  --text2: #000;
+  --textbox1: #8C4F50;
+  --textbox2: #DDBB88;
+
+
+
+  background-color: #8C4F50;
+}
+
+</style>
+<head>
+        <!--Load the AJAX API -->
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"> </script> 
+
+        <!-- Code for the Currently running games -->
+        <script>
+
+			$.ajax("https://docs.google.com/spreadsheets/d/e/2PACX-1vSG7um-FLENyk5QPt9tDWblTNSUQQY54u4szh0Rw1bJuumdk9p61gGB94z8zz2_5FVxd_Q0q1J8q-Ad/pub?gid=0&single=true&output=csv").done(function(result){
+			
+			var resultsplit = result.split(/\r?\n/)
+
+			var i;
+			for (i = 1; i < resultsplit.length; i++) {
+				if (i % 2 == 1){
+					var element = document.getElementById('current_games_output1');
+				}
+				else{
+					var element = document.getElementById('current_games_output2');
+				}
+
+
+				var thisline = resultsplit[i].split(",");
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode(thisline[0]));
+				element.appendChild(para);
+
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode("Game Master: " + thisline[1]));
+				element.appendChild(para);
+
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode("Hosted on " + thisline[2] + " at " + thisline[3]));
+				element.appendChild(para);
+
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode("Currently hosting " + thisline[4] + " of " + thisline[5] + " Players."));
+				element.appendChild(para);
+
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode("Description: " + thisline[6]));
+				element.appendChild(para);
+
+				var para = document.createElement("hr");
+				element.appendChild(para);
+				}
+			});
+
+        </script>
+
+        <!-- Code for games needing players -->
+        <script>
+        	$.ajax("https://docs.google.com/spreadsheets/d/e/2PACX-1vQVU-mYTNwiNJcqqLx3KRNwihm4RRCK5OWLCdbOvX5Di_-BlNAaiaW5gfopovU8JGeYXc1VGiwB4292/pub?gid=0&single=true&output=csv").done(function(result){
+			
+			var resultsplit = result.split(/\r?\n/)
+
+			var i;
+			for (i = 1; i < resultsplit.length; i++) {
+				if (i % 2 == 1){
+					var element = document.getElementById('needed_games_output1');
+				}
+				else{
+					var element = document.getElementById('needed_games_output2');
+				}
+
+
+				var thisline = resultsplit[i].split(",");
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode(thisline[0]));
+				element.appendChild(para);
+
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode("Game Master: " + thisline[1]));
+				element.appendChild(para);
+
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode("Hosted on " + thisline[2] + " at " + thisline[3]));
+				element.appendChild(para);
+
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode("Currently hosting " + thisline[4] + " of " + thisline[5] + " Players."));
+				element.appendChild(para);
+
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode("Description: " + thisline[6]));
+				element.appendChild(para);
+
+				var para = document.createElement("hr");
+				element.appendChild(para);
+				}
+			});
+        </script>
+
+        <!-- Code for events -->
+        <script>
+        	$.ajax("https://docs.google.com/spreadsheets/d/e/2PACX-1vSPu4ZjDcLcwN3KezUgRuQOcu-FXOYg7hqI-eyMmMkzBW3AxezTUcUz79lgaWvRLOoQv4bUGD0WGWDi/pub?gid=0&single=true&output=csv").done(function(result){
+			
+			var resultsplit = result.split(/\r?\n/)
+
+			var i;
+			for (i = 1; i < resultsplit.length; i++) {
+
+				var element = document.getElementById('upcoming_events_output');
+
+				var thisline = resultsplit[i].split(",");
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode(thisline[0]));
+				element.appendChild(para);
+
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode("Will be hosted on: " + thisline[1] + " at " + thisline[2] + " for " + thisline[3] + " hours."));
+				element.appendChild(para);
+
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode(thisline[4]));
+				element.appendChild(para);
+
+				var anchor = document.createElement('a');
+				var link = document.createTextNode("Link to Facebook Event");
+				anchor.appendChild(link);
+				anchor.title = "This is Link";
+				anchor.href = thisline[5];
+				element.appendChild(anchor);
+
+
+				var para = document.createElement("hr");
+				element.appendChild(para);
+				}
+			});
+        </script>
+
+        <!-- Code for library -->
+
+        <script>https:
+        	$.ajax("https://docs.google.com/spreadsheets/d/e/2PACX-1vRJkVLAlhBbilWfq7prugq3hHMKHsfziCv3lAfGhfcufmi_DF9bGHPU-nWkbGh7nd0q0AR5ItXSLaQt/pub?gid=0&single=true&output=csv").done(function(result){
+			
+			var resultsplit = result.split(/\r?\n/)
+
+			var i;
+			for (i = 1; i < resultsplit.length; i++) {
+
+				if (i % 2 == 1){
+					var element = document.getElementById('library_output1');
+				}
+				else{
+					var element = document.getElementById('library_output2');
+				}
+
+				var thisline = resultsplit[i].split(",");
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode(thisline[0]));
+				element.appendChild(para);
+
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode("HSBN: " + thisline[1]));
+				element.appendChild(para);
+
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode(thisline[2]));
+				element.appendChild(para);
+
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode("Amount of stock: " + thisline[3]));
+				element.appendChild(para);
+
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode("Amount of currently loaned stock: " + thisline[4]));
+				element.appendChild(para);
+
+				var para = document.createElement("h5");
+				para.appendChild(document.createTextNode("Availibility: " + thisline[5]));
+				element.appendChild(para);
+
+				var img = document.createElement('img'); 
+				img.src = thisline[6];
+				img.classList.add("bookimgstyle");
+				element.appendChild(img);
+
+
+				var para = document.createElement("hr");
+				element.appendChild(para);
+				}
+			});
+        </script>
+
+
+</head>
+
+
+<!-- Header -->
+<header class="w3-container w3-center" style="background: var(--topbar)">
+  <div class="w3-center">
+      <img src="images/Logotodisplay.png" style="width:20%">
+  </div>
+  <h1 class="w3-margin w3-jumbo">Monash University Role Players</h1>
+  <p class="w3-xlarge">Yes we are the Dungeons and Dragons club, We also do other things.</p>
+</header>
+
+
+<!-- Membership pitch -->
+<div class="w3-row-padding w3-padding-64 w3-container w3-center" style="background: var(--textbox1)">
+  <div  style="color: var(--text)">
+      <h1 class="w3-margin">Want to Become a member?</h1>
+      <h5>Like us on Facebook and send us a message for your membership. While you're at it join the Player and/or the Game master group!</h5>
+  </div>
+  <h5 class="w3-center">
+      <a href="https://www.facebook.com/MonashUniRoleplayers" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
+      <i class="fab fa-facebook-square fa-3x w3-hover-opacity" style="color:#fff"></i>
+      </a>
+      <a href="https://www.facebook.com/groups/378621552512609" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
+      <i class="fas fa-dice-d20 fa-3x w3-hover-opacity" style="color:#fff"></i>
+      </a>
+      <a href="https://www.facebook.com/groups/1779916968920889" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
+      <i class="fas fa-dungeon fa-3x w3-hover-opacity" style="color:#fff"></i>
+      </a>
+  </h5>
+</div>
+
+<!-- Upcoming Events -->
+<div class="w3-row-padding w3-padding-64 w3-container" style="background: var(--textbox2)">
+  <div class="w3-content">
+    <div class="w3-center" style="color: var(--text)">
+      <h1>Upcoming Events</h1>
+	      <h5 class="w3-padding-8"> <!-- w3-border-bottom w3-border-white -->
+	        Here are the events we have up and coming!
+	        <hr>
+	      </h5>
+	      <p id="upcoming_events_output"></p>
+      <p class="w3-text-grey"></p>
+    </div>
+  </div>
+</div>
+
+<!-- Games in need of players -->
+<div class="w3-row-padding w3-padding-64 w3-container" style="background: var(--textbox1)">
+  <div class="w3-content">
+    <div class="w3-center" style="color: var(--text)">
+		<h1>
+			Games in need of players
+		</h1>
+		<h5 class="w3-padding-8">
+			Feel free to send us a message on Facebook to join one of these games!
+			<h5 class="w3-padding-8 w3-half">
+				<p id="needed_games_output1"></p>
+			</h5>
+			<h5 class="w3-padding-8 w3-half">
+				<p id="needed_games_output2"></p>
+			</h5>
+		</h5>
+		<p class="w3-text-grey"></p>
+		</div>
+  </div>
+</div>
+
+<!-- Currently Running Games -->
+<div class="w3-row-padding w3-padding-64 w3-container" style="background: var(--textbox2)">
+	<div class="w3-content">
+		<div class="w3-center" style="color: var(--text)">
+		<h1>
+			Currently Running Games
+		</h1>
+		<h5 class="w3-padding-8">
+			These are the games currently running!
+			<h5 class="w3-padding-8 w3-half">
+				<p id="current_games_output1"></p>
+			</h5>
+			<h5 class="w3-padding-8 w3-half">
+				<p id="current_games_output2"></p>
+			</h5>
+		</h5>
+		<p class="w3-text-grey"></p>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Library -->
+<div class="w3-row-padding w3-padding-64 w3-container" style="background: var(--textbox1)">
+	<div class="w3-content">
+		<div class="w3-center" style="color: var(--text)">
+			<h1>
+				Library
+			</h1>
+			<h5 class="w3-padding-8">
+				Books you can Loan, just send us a message over Facebook or by email and we will arrange a pick up time!
+			</h5>
+			<h5 class="w3-padding-8 w3-half">
+				<p id="library_output1"></p>
+			</h5>
+			<h5 class="w3-padding-8 w3-half">
+				<p id="library_output2"></p>
+			</h5>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<!-- Footer! -->
+<footer class="w3-container w3-dark-grey w3-center w3-padding-64">
+  <div>
+      <h1 class="w3-margin">Want to Become a member?</h1>
+      <h5>Like us on Facebook and send us a message for your membership. While you're at it join the Player and/or the Game master group!</h5>
+  </div>
+  <h5 class="w3-center">
+      <a href="https://www.facebook.com/MonashUniRoleplayers" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
+      <i class="fab fa-facebook-square fa-3x w3-hover-opacity" style="color:#fff"></i>
+      </a>
+      <a href="https://www.facebook.com/groups/378621552512609" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
+      <i class="fas fa-dice-d20 fa-3x w3-hover-opacity" style="color:#fff"></i>
+      </a>
+      <a href="https://www.facebook.com/groups/1779916968920889" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
+      <i class="fas fa-dungeon fa-3x w3-hover-opacity" style="color:#fff"></i>
+      </a>
+  </h5>
+</footer>
+
+
+</body>
+</html>
