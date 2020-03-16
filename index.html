@@ -67,7 +67,7 @@ body {
 
 			$.ajax("https://docs.google.com/spreadsheets/d/e/2PACX-1vTRlvX8_ZvgKIS7Ar9qNeQ7AuIVOtstEQD7JlC41gG6LfHjo3WqTdIWIZtwHOQSNYzs1iq__bfd-a4n/pub?gid=0&single=true&output=tsv").done(function(result){
 			
-			var resultsplit = result.split(/\r?\t/)
+			var resultsplit = result.split(\t)
 
 			var i;
 			for (i = 1; i < resultsplit.length; i++) {
