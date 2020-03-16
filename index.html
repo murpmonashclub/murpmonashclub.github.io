@@ -157,7 +157,7 @@ body {
 			
         	console.log(result);
 
-			var resultsplit = result.split('\t');
+			var resultsplit = result.split(/\r?\n/);
 
 			console.log(resultsplit);
 
@@ -166,7 +166,7 @@ body {
 
 				var element = document.getElementById('upcoming_events_output');
 
-				var thisline = resultsplit[i].split(",");
+				var thisline = resultsplit[i].split("\t");
 				var para = document.createElement("h5");
 				para.appendChild(document.createTextNode(thisline[0]));
 				element.appendChild(para);
