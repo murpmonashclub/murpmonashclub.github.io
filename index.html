@@ -155,7 +155,11 @@ body {
         <script>
         	$.ajax("https://docs.google.com/spreadsheets/d/e/2PACX-1vQrXIAiBg6IOiX9MFH3wffRaqd2klylypFquVeXWq9WmyituhMt9BwoKi9te0lfYZl_55Z4oeEf3KFa/pub?gid=0&single=true&output=tsv").done(function(result){
 			
+        	console.log(result);
+
 			var resultsplit = result.split('\t');
+
+			console.log(resultsplit);
 
 			var i;
 			for (i = 1; i < resultsplit.length; i++) {
