@@ -43,6 +43,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   height: 128px;
 }
 
+table
+{ 
+margin-left: auto;
+margin-right: auto;
+}
+
 
 body {
   --topbar: #DDBB88;
@@ -251,40 +257,58 @@ body {
 
 <!-- Header -->
 <header class="w3-container w3-center" style="background: var(--topbar)">
-  <div class="w3-center">
-      <img src="images/Logotodisplay.png" style="width:20%">
-  </div>
-  <h1 class="w3-margin w3-jumbo">Monash University Role Players</h1>
-  <p class="w3-xlarge">Yes we are the Dungeons and Dragons club, <br> We also do other things as well!</p>
+	<div class="w3-center">
+		<img src="images/Logotodisplay.png" style="width:20%">
+	</div>
+	<h1 class="w3-margin w3-jumbo">Monash University Role Players</h1>
+	<p class="w3-xlarge">Yes we are the Dungeons and Dragons club, <br> We also do other things as well!</p>
 </header>
 
 
 <!-- Membership pitch -->
-<div class="w3-row-padding w3-padding-64 w3-container w3-center" style="background: var(--textbox1)">
-  <div  style="color: var(--text)">
-      <h1 class="w3-margin">Want to Become a member?</h1>
-      <h5>Like us on Facebook and send us a message for your membership. While you're at it join the Player and/or the Game master group!</h5>
+<div class="w3-row-padding w3-padding-64 w3-container w3-center w3-responsive" style="background: var(--textbox1)">
+	<div  style="color: var(--text)">
+		<h1 class="w3-margin">Want to Become a member?</h1>
+		<h5>Like us on Facebook and send us a message for your membership. While you're at it join the Player and/or the Game master group!</h5>
 
-      <h5>You can also join via a google form link <a href="https://forms.gle/S2QfPR8cMkxTfE318">here.</a> </h5>
-      
-      
+		<h5>You can also join via a google form link <a href="https://forms.gle/S2QfPR8cMkxTfE318">here.</a> </h5>
 
-  </div>
-  <h5 class="w3-center" style="color: var(--text)"> <hr>Discord  -  Facebook  -  Player Group  -  GM Group </h5>
-  <h5 class="w3-center">
-		<a href="https://discord.gg/ygc5vBv" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-		<i class="fab fa-discord fa-3x w3-hover-opacity" style="color:#fff"></i>
-		</a>
-		<a href="https://www.facebook.com/MonashUniRoleplayers" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-		<i class="fab fa-facebook-square fa-3x w3-hover-opacity" style="color:#fff"></i>
-		</a>
-		<a href="https://www.facebook.com/groups/378621552512609" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-		<i class="fas fa-dice-d20 fa-3x w3-hover-opacity" style="color:#fff"></i>
-		</a>
-		<a href="https://www.facebook.com/groups/1779916968920889" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-		<i class="fas fa-dungeon fa-3x w3-hover-opacity" style="color:#fff"></i>
-		</a>
-  </h5>
+		<h5> <hr> </h5>
+
+
+
+		<table  style="width:50%" class="w3-table w3-centered w3-center">
+			<tr style="color: var(--text)">
+				<th>Discord</th>
+				<th>Facebook</th>
+				<th>Player Group</th>
+				<th>GM Group</th>
+			</tr>
+			<tr>
+				<td>
+					<a href="https://discord.gg/ygc5vBv" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
+						<i class="fab fa-discord fa-3x w3-hover-opacity" style="color:#fff"></i>
+					</a>
+				</td>
+				<td>
+					<a href="https://www.facebook.com/MonashUniRoleplayers" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
+						<i class="fab fa-facebook-square fa-3x w3-hover-opacity" style="color:#fff"></i>
+					</a>
+				</td>
+				<td>
+					<a href="https://www.facebook.com/groups/378621552512609" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
+						<i class="fas fa-dice-d20 fa-3x w3-hover-opacity" style="color:#fff"></i>
+					</a>
+				</td>
+				<td>
+					<a href="https://www.facebook.com/groups/1779916968920889" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
+						<i class="fas fa-dungeon fa-3x w3-hover-opacity" style="color:#fff"></i>
+					</a>
+				</td>
+			</tr>
+		</table>
+
+	</div>
 </div>
 
 <!-- Upcoming Events -->
@@ -292,11 +316,11 @@ body {
   <div class="w3-content">
     <div class="w3-center" style="color: var(--text)">
       <h1>Upcoming Events</h1>
-	      <h5 class="w3-padding-8"> <!-- w3-border-bottom w3-border-white -->
-	        Here are the events we have up and coming!
-	        <hr>
-	      </h5>
-	      <p id="upcoming_events_output"></p>
+      <h5 class="w3-padding-8"> <!-- w3-border-bottom w3-border-white -->
+        Here are the events we have up and coming!
+        <hr>
+      </h5>
+      <p id="upcoming_events_output"></p>
       <p class="w3-text-grey"></p>
     </div>
   </div>
@@ -304,11 +328,11 @@ body {
 
 <!-- Games in need of players -->
 <div class="w3-row-padding w3-padding-64 w3-container" style="background: var(--textbox1)">
-  <div class="w3-content">
-    <div class="w3-center" style="color: var(--text)">
-		<h1>
-			Games in need of players
-		</h1>
+	<div class="w3-content">
+		<div class="w3-center" style="color: var(--text)">
+			<h1>
+				Games in need of players
+			</h1>
 		<h5 class="w3-padding-8">
 			Feel free to send us a message on Facebook to join one of these games!
 			<hr>
@@ -321,7 +345,7 @@ body {
 		</h5>
 		<p class="w3-text-grey"></p>
 		</div>
-  </div>
+	</div>
 </div>
 
 <!-- Currently Running Games -->
@@ -385,21 +409,36 @@ body {
       <h5>Don't want to send us a Facebook message? - Email us at: murp@monashclubs.org</h5>
 
   </div>
-  <h5 class="w3-center" style="color: var(--text)"> <hr>Discord  -  Facebook  -  Player Group  -  GM Group </h5>
-  <h5 class="w3-center">
-		<a href="https://discord.gg/ygc5vBv" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-		<i class="fab fa-discord fa-3x w3-hover-opacity" style="color:#fff"></i>
-		</a>
-		<a href="https://www.facebook.com/MonashUniRoleplayers" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-		<i class="fab fa-facebook-square fa-3x w3-hover-opacity" style="color:#fff"></i>
-		</a>
-		<a href="https://www.facebook.com/groups/378621552512609" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-		<i class="fas fa-dice-d20 fa-3x w3-hover-opacity" style="color:#fff"></i>
-		</a>
-		<a href="https://www.facebook.com/groups/1779916968920889" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-		<i class="fas fa-dungeon fa-3x w3-hover-opacity" style="color:#fff"></i>
-		</a>
-  </h5>
+  <table  style="width:50%" class="w3-table w3-centered w3-center">
+			<tr style="color: var(--text)">
+				<th>Discord</th>
+				<th>Facebook</th>
+				<th>Player Group</th>
+				<th>GM Group</th>
+			</tr>
+			<tr>
+				<td>
+					<a href="https://discord.gg/ygc5vBv" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
+						<i class="fab fa-discord fa-3x w3-hover-opacity" style="color:#fff"></i>
+					</a>
+				</td>
+				<td>
+					<a href="https://www.facebook.com/MonashUniRoleplayers" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
+						<i class="fab fa-facebook-square fa-3x w3-hover-opacity" style="color:#fff"></i>
+					</a>
+				</td>
+				<td>
+					<a href="https://www.facebook.com/groups/378621552512609" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
+						<i class="fas fa-dice-d20 fa-3x w3-hover-opacity" style="color:#fff"></i>
+					</a>
+				</td>
+				<td>
+					<a href="https://www.facebook.com/groups/1779916968920889" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
+						<i class="fas fa-dungeon fa-3x w3-hover-opacity" style="color:#fff"></i>
+					</a>
+				</td>
+			</tr>
+		</table>
 </footer>
 
 
