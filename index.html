@@ -1,460 +1,147 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<title>MURP</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
-
-<!-- this is all the icon stuff for browsers, stfu webdev  -->
-<link rel="apple-touch-icon-precomposed" sizes="57x57" href="favicomatic/apple-touch-icon-57x57.png" />
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="favicomatic/apple-touch-icon-114x114.png" />
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="favicomatic/apple-touch-icon-72x72.png" />
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="favicomatic/apple-touch-icon-144x144.png" />
-<link rel="apple-touch-icon-precomposed" sizes="60x60" href="favicomatic/apple-touch-icon-60x60.png" />
-<link rel="apple-touch-icon-precomposed" sizes="120x120" href="favicomatic/apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon-precomposed" sizes="76x76" href="favicomatic/apple-touch-icon-76x76.png" />
-<link rel="apple-touch-icon-precomposed" sizes="152x152" href="favicomatic/apple-touch-icon-152x152.png" />
-<link rel="icon" type="image/png" href="favicomatic/favicon-196x196.png" sizes="196x196" />
-<link rel="icon" type="image/png" href="favicomatic/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/png" href="favicomatic/favicon-32x32.png" sizes="32x32" />
-<link rel="icon" type="image/png" href="favicomatic/favicon-16x16.png" sizes="16x16" />
-<link rel="icon" type="image/png" href="favicomatic/favicon-128.png" sizes="128x128" />
-<meta name="application-name" content="&nbsp;"/>
-<meta name="msapplication-TileColor" content="#FFFFFF" />
-<meta name="msapplication-TileImage" content="mstile-144x144.png" />
-<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
-<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
-<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
-<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
-
-
-
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
-.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
-.fa-anchor,.fa-coffee {font-size:200px}
-
-.bookimgstyle {
-  height: 128px;
-}
-
-table
-{ 
-margin-left: auto;
-margin-right: auto;
-}
-
-
-body {
-  --topbar: #DDBB88;
-
-  --text: #FFFFFFFF;
-  --text2: #000;
-  --textbox1: #852C2E;
-  --textbox2: #DDBB88;
-
-
-
-  background-color: #8C4F50;
-}
-
-</style>
 <head>
-        <!--Load the AJAX API -->
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"> </script> 
-
-        <!-- Code for the Currently running games not in need of players -->
-        <script>
-
-			$.ajax("https://docs.google.com/spreadsheets/d/e/2PACX-1vRTQOQ4jnf7oso24DQ5s5LyviluZEMc02XIPCqOGspu7XFrTrKoVqsggzRb5wdwL6K3feO_fAtDA7Vg/pub?gid=0&single=true&output=tsv").done(function(result){
-
-
-			var resultsplit = result.split(/\r?\n/);
-
-			var i;
-			for (i = 1; i < resultsplit.length; i++) {
-				if (i % 2 == 1){
-					var element = document.getElementById('current_games_output1');
-				}
-				else{
-					var element = document.getElementById('current_games_output2');
-				}
-
-
-				var thisline = resultsplit[i].split("\t");
-				var para = document.createElement("h2");
-				para.appendChild(document.createTextNode(thisline[0]));
-				element.appendChild(para);
-
-				var para = document.createElement("h5");
-				para.appendChild(document.createTextNode("Game Master: " + thisline[1]));
-				element.appendChild(para);
-
-				var para = document.createElement("h5");
-				para.appendChild(document.createTextNode("Hosted on " + thisline[2] + " at " + thisline[3]));
-				element.appendChild(para);
-
-				var para = document.createElement("h5");
-				para.appendChild(document.createTextNode("Currently hosting " + thisline[4] + " of " + thisline[5] + " Players."));
-				element.appendChild(para);
-
-				var para = document.createElement("h5");
-				para.appendChild(document.createTextNode("Description: " + thisline[6]));
-				element.appendChild(para);
-
-				var para = document.createElement("hr");
-				element.appendChild(para);
-				}
-			});
-
-        </script>
-
-        <!-- Code for games needing players -->
-        <script>
-        	$.ajax("https://docs.google.com/spreadsheets/d/e/2PACX-1vTRlvX8_ZvgKIS7Ar9qNeQ7AuIVOtstEQD7JlC41gG6LfHjo3WqTdIWIZtwHOQSNYzs1iq__bfd-a4n/pub?gid=0&single=true&output=tsv").done(function(result){
-			
-			var resultsplit = result.split(/\r?\n/);
-
-			var i;
-			for (i = 1; i < resultsplit.length; i++) {
-				if (i % 2 == 1){
-					var element = document.getElementById('needed_games_output1');
-				}
-				else{
-					var element = document.getElementById('needed_games_output2');
-				}
-
-
-				var thisline = resultsplit[i].split("\t");
-				var para = document.createElement("h2");
-				para.appendChild(document.createTextNode(thisline[0]));
-				element.appendChild(para);
-
-				var para = document.createElement("h5");
-				para.appendChild(document.createTextNode("Game Master: " + thisline[1]));
-				element.appendChild(para);
-
-				var para = document.createElement("h5");
-				para.appendChild(document.createTextNode("Hosted on " + thisline[2] + " at " + thisline[3]));
-				element.appendChild(para);
-
-				var para = document.createElement("h5");
-				para.appendChild(document.createTextNode("Currently hosting " + thisline[4] + " of " + thisline[5] + " Players."));
-				element.appendChild(para);
-
-				var para = document.createElement("h5");
-				para.appendChild(document.createTextNode("Description: " + thisline[6]));
-				element.appendChild(para);
-
-				var para = document.createElement("hr");
-				element.appendChild(para);
-				}
-			});
-        </script>
-
-        <!-- Code for events -->
-        <script>
-        	$.ajax("https://docs.google.com/spreadsheets/d/e/2PACX-1vQrXIAiBg6IOiX9MFH3wffRaqd2klylypFquVeXWq9WmyituhMt9BwoKi9te0lfYZl_55Z4oeEf3KFa/pub?gid=0&single=true&output=tsv").done(function(result){
-			
-
-			var resultsplit = result.split(/\r?\n/);
-
-
-			var i;
-			for (i = 1; i < resultsplit.length; i++) {
-
-				var element = document.getElementById('upcoming_events_output');
-
-				var thisline = resultsplit[i].split("\t");
-				var para = document.createElement("h2");
-				para.appendChild(document.createTextNode(thisline[0]));
-				element.appendChild(para);
-
-				var para = document.createElement("h5");
-				para.appendChild(document.createTextNode("Will be hosted on: " + thisline[1] + " at " + thisline[2] + " until " + thisline[3] + " ."));
-				element.appendChild(para);
-
-				var para = document.createElement("h5");
-				para.appendChild(document.createTextNode(thisline[4]));
-				element.appendChild(para);
-
-				var anchor = document.createElement('a');
-				var link = document.createTextNode("Link to Facebook Event");
-				anchor.appendChild(link);
-				anchor.title = "This is Link";
-				anchor.href = thisline[5];
-				element.appendChild(anchor);
-
-
-				var para = document.createElement("hr");
-				element.appendChild(para);
-				}
-			});
-        </script>
-
-        <!-- Code for library -->
-
-        <script>https:
-        	$.ajax("https://docs.google.com/spreadsheets/d/e/2PACX-1vTF2sFqPP8scFqIWO8XkEti2dONQpL1VsSBWzohURu7zojKV1MLM4sw7Ay2EvMu96jAGon6i-ZSZfiq/pub?gid=0&single=true&output=tsv").done(function(result){
-			
-			var resultsplit = result.split(/\r?\n/);
-
-			var i;
-			for (i = 1; i < resultsplit.length; i++) {
-
-				if (i % 2 == 1){
-					var element = document.getElementById('library_output1');
-				}
-				else{
-					var element = document.getElementById('library_output2');
-				}
-
-				var thisline = resultsplit[i].split("\t");
-				var para = document.createElement("h2");
-				para.appendChild(document.createTextNode(thisline[0]));
-				element.appendChild(para);
-
-				var para = document.createElement("h5");
-				para.appendChild(document.createTextNode("HSBN: " + thisline[1]));
-				element.appendChild(para);
-
-				var para = document.createElement("h5");
-				para.appendChild(document.createTextNode(thisline[2]));
-				element.appendChild(para);
-
-				var para = document.createElement("h5");
-				para.appendChild(document.createTextNode("Amount of stock: " + thisline[3]));
-				element.appendChild(para);
-
-				var para = document.createElement("h5");
-				para.appendChild(document.createTextNode("Amount of currently loaned stock: " + thisline[4]));
-				element.appendChild(para);
-
-				var para = document.createElement("h5");
-				para.appendChild(document.createTextNode("Availibility: " + thisline[5]));
-				element.appendChild(para);
-
-				var img = document.createElement('img'); 
-				img.src = thisline[6];
-				img.classList.add("bookimgstyle");
-				element.appendChild(img);
-
-
-				var para = document.createElement("hr");
-				element.appendChild(para);
-				}
-			});
-        </script>
-
-
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    
+    <title>MURP - Monash University Role Players </title>
+    
+    <link href="css/bootstrap.css" rel="stylesheet" />
+	<link href="css/coming-sssoon.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="images/MURP icon.png"
+    
+    <!--     Fonts     -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
+  
 </head>
 
-
-<!-- Header -->
-<header class="w3-container w3-center" style="background: var(--topbar)">
-	<div class="w3-center">
-		<img src="images/Logotodisplay.png" style="width:20%">
-	</div>
-	<h1 class="w3-margin w3-jumbo">Monash University Role Players</h1>
-	<p class="w3-xlarge">Yes, we are the Dungeons and Dragons club. <br> We also do other things!</p>
-</header>
-
-
-<!-- Membership pitch -->
-<div class="w3-row-padding w3-padding-64 w3-container w3-center w3-responsive" style="background: var(--textbox1)">
-	<div  style="color: var(--text)">
-		<h1 class="w3-margin">Want to become a member?</h1>
-		<h5>Like us on Facebook and send us a message for your membership. While you're at it join the Player and/or the Game master group!</h5>
-
-		<h5>You can also join via our MSA link <a href="https://clubs.msa.monash.edu/organisation/8083/">here.</a> </h5>
-
-		<h5> <hr> </h5>
-
-
-
-		<table  style="width:50%" class="w3-table w3-centered w3-center">
-			<tr style="color: var(--text)">
-				<th>Discord</th>
-				<th>Facebook</th>
-				<th>Player Group</th>
-				<th>GM Group</th>
-			</tr>
-			<tr>
-				<td>
-					<a href="https://discord.gg/ygc5vBv" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-						<i class="fab fa-discord fa-3x w3-hover-opacity" style="color:#fff"></i>
-					</a>
-				</td>
-				<td>
-					<a href="https://www.facebook.com/MonashUniRoleplayers" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-						<i class="fab fa-facebook-square fa-3x w3-hover-opacity" style="color:#fff"></i>
-					</a>
-				</td>
-				<td>
-					<a href="https://www.facebook.com/groups/378621552512609" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-						<i class="fas fa-dice-d20 fa-3x w3-hover-opacity" style="color:#fff"></i>
-					</a>
-				</td>
-				<td>
-					<a href="https://www.facebook.com/groups/1779916968920889" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-						<i class="fas fa-dungeon fa-3x w3-hover-opacity" style="color:#fff"></i>
-					</a>
-				</td>
-			</tr>
-		</table>
-
-	</div>
-</div>
-
-<!-- Upcoming Events -->
-<div class="w3-row-padding w3-padding-64 w3-container" style="background: var(--textbox2)">
-  <div class="w3-content">
-    <div class="w3-center" style="color: var(--text)">
-		<h1>Upcoming Events</h1>
-		<h5 class="w3-padding-8"> <!-- w3-border-bottom w3-border-white -->
-			Here are the events we have up and coming!
-			<hr>
-		</h5>
-		<p id="upcoming_events_output"></p>
-		<p class="w3-text-grey"></p>
-
+<body>
+<nav class="navbar navbar-transparent navbar-fixed-top" role="navigation">  
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
     </div>
-  </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="https://www.facebook.com/MonashUniRoleplayers"> 
+                    <i class="fa fa-facebook-square"></i>
+                    Our Facebook
+                </a>
+            </li>
+             <li>
+                <a href="mailto:murp@monashclubs.org?subject=General Enquiry from MURP Website"> 
+                    <i class="fa fa-envelope-o"></i>
+                    Email us
+                </a>
+            </li>
+       </ul>
+      
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
+<div class="main" style="background-image: url('images/MURP GM background image.png') ">
+
+<!--    Change the image source '/images/default.jpg' with your favourite image.     -->
+    
+    <div class="cover black" data-color="black"></div>
+     
+<!--   You can change the black color for the filter with those colors: blue, green, red, orange       -->
+
+    <div class="container">
+        <h1 class="logo cursive">
+            Yes, we play D&D
+        </h1>
+        <!--  H1 can have 2 designs: "logo" and "logo cursive"           -->
+
+        <div class="content">
+            <h4 class="motto"> <br /> The <i>Monash University Role Players</i> play tabletop roleplaying games on campus at Clayton, and we'd love to meet you!</h4>
+            <div class="subscribe">
+                <h5 class="info-text">
+                    Join our mailing list to get in the loop about <br />what we have planned for the club!
+                </h5>
+                <!-- Begin Mailchimp Signup Form -->
+                <link href="//cdn-images.mailchimp.com/embedcode/classic-071822.css" rel="stylesheet" type="text/css">
+                <style type="text/css">
+                    #mc_embed_signup {
+                        background: #aa9882;
+                        clear: left;
+                        font: 14px Helvetica,Arial,sans-serif;
+                        width: 352px;
+                        margin: auto
+                    }
+                    /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+                    We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+                </style>
+
+                <div id="mc_embed_signup">
+                    <form action="https://monashuniroleplayers.us4.list-manage.com/subscribe/post?u=0d5955050bedb21e84bad56f4&amp;id=b388e11e6a&amp;f_id=009eace8f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_self">
+                        <div id="mc_embed_signup_scroll">
+                            <h2><i><font color="cb0606" face="Times New Roman">Subscribe:</font></i></h2>
+                            <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                            <div class="mc-field-group">
+                                <label for="mce-EMAIL">
+                                    Email Address  <span class="asterisk">*</span>
+                                </label>
+                                <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" required>
+                                <span id="mce-EMAIL-HELPERTEXT" class="helper_text"></span>
+                            </div>
+                            <div id="mce-responses" class="clear foot">
+                                <div class="response" id="mce-error-response" style="display:none"></div>
+                                <div class="response" id="mce-success-response" style="display:none"></div>
+                            </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                            <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_0d5955050bedb21e84bad56f4_b388e11e6a" tabindex="-1" value="" margin: 110></div>
+                            <div class="optionalParent">
+                                <div class="clear foot">
+                                    <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button" style="margin:auto">
+                                    <class ="brandingLogo">
+                                        <button-override style="margin-left:151px;margin-right:0px; margin-bottom:20px; margin-top:20px; margin-left:auto;">
+                                            <a href="http://eepurl.com/ihzWvX" title="Mailchimp - email marketing made easy and fun"> <img src="https://eep.io/mc-cdn-images/template_images/branding_logo_text_light_dtp.svg"> </a> </ >
+
+                                        </button-override>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!--End mc_embed_signup-->
+                <div
+                <h5 class="info-text">
+                    We have a thriving community of members on our Discord server, <br /> use this invite link to join us!<br />
+
+
+                    <a href="https://discord.gg/ygc5vBv" target="_blank">
+                        <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a6ca814282eca7172c6_icon_clyde_white_RGB.svg" alt="Join our discord server!" width="128" height="128"
+                    </a>
+                </h5>
+            </div>
+      
 </div>
+    <div class="footer">
+      <div class="container">
+             Made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com">Creative Tim</a>. Free download <a href="http://www.creative-tim.com/product/coming-sssoon-page">here.</a>
+      </div>
+    </div>
+ </div>
+ </body>
+   <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+   <script src="js/bootstrap.min.js" type="text/javascript"></script>
 
-<!-- Games in need of players -->
-<div class="w3-row-padding w3-padding-64 w3-container" style="background: var(--textbox1)">
-	<div class="w3-content">
-		<div class="w3-center" style="color: var(--text)">
-			<h1>
-				Games in need of players
-			</h1>
-		<h5 class="w3-padding-8">
-			Feel free to send us a message on Facebook to join one of these games!
-			<hr>
-			<h5 class="w3-padding-large w3-half">
-				<p id="needed_games_output1"></p>
-			</h5>
-			<h5 class="w3-padding-large w3-half">
-				<p id="needed_games_output2"></p>
-			</h5>
-		</h5>
-		<p class="w3-text-grey"></p>
-		</div>
-	</div>
-</div>
-
-<!-- Currently Running Games -->
-<div class="w3-row-padding w3-padding-64 w3-container" style="background: var(--textbox2)">
-	<div class="w3-content">
-		<div class="w3-center" style="color: var(--text)">
-		<h1>
-			Currently Running Games
-		</h1>
-		<h5 class="w3-padding-8">
-			These are the games currently running! <br>
-			(and are currently not looking for players)
-			<hr>
-			<h5 class="w3-padding-large w3-half">
-				<p id="current_games_output1"></p>
-			</h5>
-			<h5 class="w3-padding-large w3-half">
-				<p id="current_games_output2"></p>
-			</h5>
-		</h5>
-		<p class="w3-text-grey"></p>
-		</div>
-	</div>
-</div>
-
-
-
-<!-- Library -->
-<div class="w3-row-padding w3-padding-64 w3-container" style="background: var(--textbox1)">
-	<div class="w3-content">
-		<div class="w3-center" style="color: var(--text)">
-			<h1>
-				Library
-			</h1>
-			<h5 class="w3-padding-8">
-				Books you can Loan, just send us a message over Facebook or by email and we will arrange a pick up time!
-				<hr>
-			</h5>
-			<h5 class="w3-padding-large w3-half">
-				<p id="library_output1"></p>
-			</h5>
-			<h5 class="w3-padding-large w3-half">
-				<p id="library_output2"></p>
-			</h5>
-		</div>
-	</div>
-</div>
-
-
-
-
-
-
-<!-- Footer! -->
-<footer class="w3-container w3-dark-grey w3-center w3-padding-64">
-	<div>
-		<h1 class="w3-margin">Which committee member do I need?</h1>
-		<h5>Want to join MURP? - Send us a message on Facebook!</h5>
-		<h5>Want to book a room? - Send us a message on Facebook and our archivist will respond!</h5>
-		<h5>Have a cool event idea or group we should partner with?  - Send us a message on Facebook and our public relations officer will respond!</h5>
-		<h5>Having issues about anyone or anything in the club?  - Send our Diversity Officer an email about the problem, and it is strictly confidential murpdiversityofficer@gmail.com.</h5>
-		<h5>Don't want to send us a Facebook message? - Email us at: murp@monashclubs.org</h5>
-
-	</div>
-  	<table  style="width:50%" class="w3-table w3-centered w3-center">
-		<tr style="color: var(--text)">
-			<th>Discord</th>
-			<th>Facebook</th>
-			<th>Player Group</th>
-			<th>GM Group</th>
-			<th>Code of Conduct</th>
-			<th>Constitution</th>
-		</tr>
-		<tr>
-			<td>
-				<a href="https://discord.gg/ygc5vBv" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-					<i class="fab fa-discord fa-3x w3-hover-opacity" style="color:#fff"></i>
-				</a>
-			</td>
-			<td>
-				<a href="https://www.facebook.com/MonashUniRoleplayers" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-					<i class="fab fa-facebook-square fa-3x w3-hover-opacity" style="color:#fff"></i>
-				</a>
-			</td>
-			<td>
-				<a href="https://www.facebook.com/groups/378621552512609" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-					<i class="fas fa-dice-d20 fa-3x w3-hover-opacity" style="color:#fff"></i>
-				</a>
-			</td>
-			<td>
-				<a href="https://www.facebook.com/groups/1779916968920889" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-					<i class="fas fa-dungeon fa-3x w3-hover-opacity" style="color:#fff"></i>
-				</a>
-			</td>
-			<td>
-				<a href="https://drive.google.com/file/d/1KWVY5uCJRPKypVn2Tk5rq0Ysp9tST3Nk/view" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-					<i class="fas fa-file-alt fa-3x w3-hover-opacity" style="color:#fff"></i>
-				</a>
-			</td>
-			<td>
-				<a href="https://drive.google.com/open?id=1_KRHMq6SDYZq--qJEhMMrl1nqSG_OuB1" class="w3-bar-item w3-padding-large" style="color:#0000" target="_blank">
-					<i class="fas fa-file-alt fa-3x w3-hover-opacity" style="color:#fff"></i>
-				</a>
-			</td>
-		</tr>
-	</table>
-</footer>
-
-
-</body>
 </html>
